@@ -89,6 +89,18 @@ bot.on("message", (msg) => {
     return;
   }
 
+  // sends a dank meme to anyone that uses !meme command
+  if (message.content === '!memes') {
+    var fs = require('fs');
+    var files = fs.readdirSync('./memes/')
+    let chosenMeme =files[Math.floor(Math.random() * files.length)]
+    
+
+    const attachment = new MessageAttachment(chosenMeme, 'memes.jpg');
+    // Send the attachment in the message channel with a content
+    message.channel.send(`${message.author}, here are your memes!`, attachment);
+  }
+
   let msg_array = msg.content.split(" ");
   let cmd = msg_array[0]; //gets the first element eg "!verify" if the message is "!verify someone"
   let args = msg_array.slice(1); //gets the arguments eg "this that " if the message is "!do this that"
